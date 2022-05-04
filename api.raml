@@ -1,0 +1,326 @@
+#%RAML 1.0
+title: MINI PROYECTO - Tienda Online 
+baseUri: http://localhost:3000/api/{version}
+version: v1
+
+types:
+    Login:
+        properties:
+            id:
+                required: false
+                type: integer
+            email: string
+            contrasena: string
+    
+    Catalogo:
+        properties:
+            id:
+                required: false
+                type: integer
+            producto: string
+            precio: integer
+      
+    Banco:
+        properties:
+            id:
+                required: false
+                type: integer
+            cuenta: string
+            contrasena: string
+            saldo: number
+
+    Pedidos:
+        properties:
+            idPedidos:
+                required: false
+                type: integer
+            numero: string
+            producto: string
+            precio: string
+            cantidad: integer
+            total: string
+            pago: string
+            entrega: string
+            totalFactura: string
+            usuario: string
+   
+    Converter:
+        properties:
+            celcius: integer   
+
+/Login:
+    get:
+        description: Obtiene un listado de los usuarios
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Login[]
+    /{email}:
+        get:
+            description: Obtiene un usuario
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: Login        
+    post:
+        description: Crea una nueva seccion de login
+        body:
+            application/json:
+                type: Login
+        responses:
+            201:
+                description: Login creado. Retorna el identificador del nuevo login
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del nuevo login  
+
+/Catalogo:
+    get: 
+        description: Obtiene un listado de los productos
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Catalogo[]
+    put:
+        description: Actualiza Stock
+        headers: 
+        body: 
+        responses: 
+            201:
+                description: Stock actualizado, retorna OK.
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del producto
+
+/bank:
+    get:
+        description: Obtiene un listado de los usuarios del banco
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Banco[]
+
+    post:
+        description: Accesa los datos del banco de un usuario
+        body:
+            application/json:
+                type: Banco
+        responses:
+            201:
+                description: Banco acceso OK. Retorna informaciones de la cuenta
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del cuenta
+    put:
+        description: Actualiza el saldo de la cuenta
+        headers: 
+        body: 
+        responses: 
+            201:
+                description: Saldo actualizado, retorna OK.
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del cuenta
+
+/Converter:
+    get:
+        description: Datos WSDL
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer 
+
+    post:
+        description: 
+        body:
+            application/json:
+                type: 
+        responses:
+            201:
+                description: 
+                body:
+                    application/json:
+                        type: 
+                        description: 
+    /{temp}:
+        get:
+            description: Obtiene la temperatura
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer 
+
+/Almacen:
+    get:
+        description: Datos WSDL de almacen proprio
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer
+    post:
+        description: 
+        body:
+            application/json:
+                type: 
+        responses:
+            201:
+                description: 
+                body:
+                    application/json:
+                        type: 
+                        description:  
+    /{producto}:
+        get:
+            description: Obtiene respuesrta si hay producto en almacen
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer
+        post:
+            description: 
+            body:
+                application/json:
+                    type: 
+            responses:
+                201:
+                    description: 
+                    body:
+                        application/json:
+                            type: 
+                            description:
+
+/Pedidos:
+    get:
+        description: Control de pedidos almacen 
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: Pedidos[]
+    post:
+        description: Crear pedidos
+        body:
+            application/json:
+                type: Pedidos
+        responses:
+            201:
+                description: Pedido creado
+                body:
+                    application/json:
+                        type: integer
+                        description:  Identificador del nuevo pedido
+    put:
+        description: Actualiza un pedido
+        headers: 
+        body: 
+        responses: 
+            201:
+                description: Pedido actualizado, retorna OK.
+                body:
+                    application/json:
+                        type: integer
+                        description: Identificador del pedido
+    /{pedido}:
+        get:
+            description: Obtiene un pedido de compra
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: Pedidos
+
+/Proveedor1:
+    get:
+        description: Datos WSDL de los provedores
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer
+    /{producto}:
+        get:
+            description: Obtiene informaciones de los precios de los productos del proveedor 1
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer
+/Proveedor2:
+    get:
+        description: Datos WSDL de los provedores
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer
+    /{producto}:
+        get:
+            description: Obtiene informaciones de los precios de los productos del proveedor 2
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer  
+
+/Orden1:
+    get:
+        description: Ordena compra del proveedor 1 directamente via WSDL
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer
+    /{producto}:
+        get:
+            description: Ordena la compra del producto
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer
+
+/Orden2:
+    get:
+        description: Ordena compra del proveedor 2 directamente via WSDL
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer
+    /{producto}:
+        get:
+            description: Obtiene informaciones de los precios de los productos y ordena la compra
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer
+
+/Ode:
+    get:
+        description: Servicio automatizado via WSDL utilizando ODE
+        responses:
+            200:
+                body:
+                    application/json:
+                        type: integer
+    /{producto}:
+        get:
+            description: Obtiene informaciones de los precios de los productos y ordena la compra
+            responses:
+                200:
+                    body:
+                        application/json:
+                            type: integer
